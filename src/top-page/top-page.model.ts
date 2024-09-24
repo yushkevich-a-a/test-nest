@@ -21,5 +21,6 @@ export class TopPageModel {
     seniorSalary: number;
   };
   seoText: string;
+  tagsTitle: string;
   tags: string[];
 }
