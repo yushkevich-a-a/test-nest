@@ -8,25 +8,26 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { FindProductDto } from 'src/product/dto/find-product.dto';
 import { TopPageModel } from './top-page.model';
-import { FindTopPage } from './dto/find-top-page.gto';
+import { FindTopPageDto } from './dto/find-top-page.gto';
+import { ConfigService } from '@nestjs/config';
 
 @Controller('top-page')
 export class TopPageController {
-  @Post()
-  async create(@Body() dto: Omit<TopPageModel, '_id'>) {}
+  constructor(private readonly configService: ConfigService) {}
 
-  @Get(':id')
-  async get(@Param('id') id: string) {}
+  @Get('get/:alias')
+  async get(@Param('alias') alias: string) {
+    this.configService.get('TEST');
+  }
+
+  @HttpCode(200)
+  @Post('find')
+  async getByCategory(@Body() dto: FindTopPageDto) {}
+
+  @Post('save')
+  async save(@Body() dto: Omit<TopPageModel, '_id'>) {}
 
   @Delete(':id')
   async delete(@Param('id') id: string) {}
-
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: TopPageModel) {}
-
-  @HttpCode(200)
-  @Post()
-  async find(@Body() dto: FindTopPage) {}
 }
