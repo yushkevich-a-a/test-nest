@@ -18,9 +18,9 @@ import { REVIEW_NOT_FOUND } from './review.constants';
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
-  @Post()
+  @Post('create')
   async create(@Body() dto: CreateReviewDto) {
-    this.reviewService.create(dto);
+    return this.reviewService.create(dto);
   }
 
   @Get('byProduct/:productId')
@@ -30,13 +30,13 @@ export class ReviewController {
 
   @Delete('byProduct/:productId')
   async deleteByProductId(@Param('productId') id: string) {
-    this.reviewService.deleteByProductId(id);
+    return this.reviewService.deleteByProductId(id);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    const deletedDoc = this.reviewService.delete(id);
-
+    const deletedDoc = await this.reviewService.delete(id);
+    console.log(deletedDoc);
     if (!deletedDoc) {
       throw new HttpException(REVIEW_NOT_FOUND, HttpStatus.NOT_FOUND);
     }

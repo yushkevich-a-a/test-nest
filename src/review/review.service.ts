@@ -12,7 +12,8 @@ export class ReviewService {
   ) {}
 
   async create(dto: CreateReviewDto): Promise<ReviewModel> {
-    return this.reviewModel.create(dto);
+    const createdReview = new this.reviewModel(dto);
+    return createdReview.save();
   }
 
   async findByProductId(id: string): Promise<ReviewModel[]> {
