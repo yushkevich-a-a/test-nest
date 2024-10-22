@@ -36,7 +36,6 @@ describe('ReviewService', () => {
       .exec.mockReturnValueOnce([{ productId: id }]);
 
     const res = await service.findByProductId(id);
-    console.log('Привет Мир');
     expect(res[0].productId).toBe(id);
   });
 });
