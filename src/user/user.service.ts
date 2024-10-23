@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { compare, genSalt, hash } from 'bcryptjs';
 import { UserDto } from './dto/user.dto';
-import { USER_NOT_FOUND_ERROR } from './user.constants';
+import { USER_NOT_FOUND_ERROR, WRONG_PASSWORD_ERROR } from './user.constants';
 import { AuthDto } from 'src/auth/dto/auth.dto';
 
 @Injectable()
@@ -41,7 +41,7 @@ export class UserService {
     const isCorrectPassword = await compare(password, user.passwordHash);
 
     if (!isCorrectPassword) {
-      throw new UnauthorizedException(USER_NOT_FOUND_ERROR);
+      throw new UnauthorizedException(WRONG_PASSWORD_ERROR);
     }
 
     return {
