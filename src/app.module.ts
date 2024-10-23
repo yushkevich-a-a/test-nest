@@ -6,6 +6,7 @@ import { ProductModule } from './product/product.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { getMongoConfig } from './configs/mongo.config';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -16,9 +17,11 @@ import { getMongoConfig } from './configs/mongo.config';
       useFactory: getMongoConfig,
     }),
     AuthModule,
+    UserModule,
     TopPageModule,
     ReviewModule,
     ProductModule,
+    UserModule,
   ],
 })
 export class AppModule {}

@@ -9,25 +9,19 @@ import {
 } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { AuthService } from './auth.service';
-import { AUTH_REGISTER_ERROR } from './auth.constants';
+import { UserService } from 'src/user/user.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
-
-  @UsePipes(new ValidationPipe())
-  @Post('register')
-  async register(@Body() dto: AuthDto) {
-    const oldUser = await this.authService.findUser(dto.login);
-
-    if (oldUser) {
-      throw new BadRequestException(AUTH_REGISTER_ERROR);
-    }
-
-    return this.authService.createUser(dto);
-  }
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
   @HttpCode(200)
   @Post('login')
-  async login(@Body() dto: AuthDto) {}
+  async login(@Body() dto: AuthDto) {
+    const { email } = await this.userService.validateUser(dto);
+    return this.authService.login(email);
+  }
 }

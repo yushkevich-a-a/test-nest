@@ -1,28 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { AuthDto } from './dto/auth.dto';
-import { UserModel } from './user.model';
+import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { genSaltSync, hashSync } from 'bcryptjs';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    @InjectModel(UserModel.name) private readonly userModel: Model<UserModel>,
-  ) {}
+  constructor(private readonly jwtService: JwtService) {}
 
-  async createUser(dto: AuthDto): Promise<UserModel> {
-    const salt = genSaltSync(10);
-
-    const newUser = await this.userModel.create({
-      email: dto.login,
-      passwordHash: hashSync(dto.password, salt),
-    });
-    return newUser.save();
-  }
-
-  async findUser(email: string): Promise<UserModel> {
-    const finedUser = await this.userModel.findOne({ email }).exec();
-    return finedUser;
+  async login(email: string) {
+    const payload = { email };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 }
