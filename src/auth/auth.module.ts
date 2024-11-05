@@ -4,9 +4,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserModel, UserSchema } from '../user/user.model';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { getJWTConfig } from 'src/configs/jwt.config';
+import { getJWTConfig } from './../configs/jwt.config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UserService } from 'src/user/user.service';
+import { UserService } from './../user/user.service';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
