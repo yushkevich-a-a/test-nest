@@ -1,1 +1,1 @@
-export const AUTH_REGISTER_ERROR = 'Такой пользователь уже зарегистрирован';
+export const WRONG_PASSWORD_ERROR = 'Неверный пароль пользователя';

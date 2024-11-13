@@ -4,8 +4,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { compare, genSalt, hash } from 'bcryptjs';
 import { UserDto } from './dto/user.dto';
-import { USER_NOT_FOUND_ERROR, WRONG_PASSWORD_ERROR } from './user.constants';
-import { AuthDto } from 'src/auth/dto/auth.dto';
+import { USER_NOT_FOUND_ERROR } from './user.constants';
+import { AuthDto } from './../auth/dto/auth.dto';
+import { WRONG_PASSWORD_ERROR } from './../auth/auth.constants';
 
 @Injectable()
 export class UserService {
