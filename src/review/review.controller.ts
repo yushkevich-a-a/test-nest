@@ -15,6 +15,7 @@ import { CreateReviewDto } from './dto/create-review.dto';
 import { ReviewService } from './review.service';
 import { REVIEW_NOT_FOUND } from './review.constants';
 import { JwtAuthGuard } from './../auth/guards/jwt.guard';
+import { IDValidationPipe } from 'src/pipes/id-validation.pipe';
 
 @Controller('review')
 export class ReviewController {
@@ -26,13 +27,13 @@ export class ReviewController {
     return this.reviewService.create(dto);
   }
 
-  @Get('byProduct/:productId')
-  async getByProduct(@Param('productId') id: string) {
+  @Get('byProduct/:id')
+  async getByProduct(@Param('id', IDValidationPipe) id: string) {
     return this.reviewService.findByProductId(id);
   }
 
-  @Delete('byProduct/:productId')
-  async deleteByProductId(@Param('productId') id: string) {
+  @Delete('byProduct/:id')
+  async deleteByProductId(@Param('id', IDValidationPipe) id: string) {
     return this.reviewService.deleteByProductId(id);
   }
 
