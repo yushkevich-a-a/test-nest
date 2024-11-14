@@ -21,7 +21,7 @@ export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
   @UsePipes(new ValidationPipe())
-  @Post('create')
+  @Post()
   async create(@Body() dto: CreateReviewDto) {
     return this.reviewService.create(dto);
   }

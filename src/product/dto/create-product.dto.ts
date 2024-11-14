@@ -26,9 +26,6 @@ export class CreateProductDto {
   descriptionCourse: string;
 
   @IsNumber()
-  rateCount: number;
-
-  @IsNumber()
   price: number;
 
   @IsOptional()
@@ -51,9 +48,8 @@ export class CreateProductDto {
   @Type(() => ProductCharacteristicsDto)
   options: ProductCharacteristicsDto[];
 
-  @IsArray()
-  @IsString({ each: true })
-  categories: string[];
+  @IsString()
+  categories: string;
 
   @IsArray()
   @IsString({ each: true })

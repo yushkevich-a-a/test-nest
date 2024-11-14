@@ -30,7 +30,7 @@ export class ProductController {
   @Get(':id')
   async get(@Param('id') id: string) {
     const product = await this.productService.findById(id);
-    if (!!product) {
+    if (!product) {
       throw new NotFoundException(PRODUCT_NOT_FOUND);
     }
     return product;
@@ -39,7 +39,7 @@ export class ProductController {
   @Delete(':id')
   async delete(@Param('id') id: string) {
     const deleteProduct = await this.productService.deleteProduct(id);
-    if (!!deleteProduct) {
+    if (!deleteProduct) {
       throw new NotFoundException(PRODUCT_NOT_FOUND);
     }
   }
@@ -48,13 +48,16 @@ export class ProductController {
   @Patch(':id')
   async update(@Param('id') id: string, @Body() dto: ProductModel) {
     const updateProduct = await this.productService.updateProduct(id, dto);
-    if (!!updateProduct) {
+    if (!updateProduct) {
       throw new NotFoundException(PRODUCT_NOT_FOUND);
     }
     return updateProduct;
   }
 
+  @UsePipes(new ValidationPipe())
   @HttpCode(200)
-  @Post()
-  async find(@Body() dto: FindProductDto) {}
+  @Post('find')
+  async find(@Body() dto: FindProductDto) {
+    return this.productService.findWithReviews(dto);
+  }
 }

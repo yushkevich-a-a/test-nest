@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserModel } from './user.model';
+import { UserModel } from '../../user.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { compare, genSalt, hash } from 'bcryptjs';

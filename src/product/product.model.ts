@@ -40,8 +40,8 @@ export class ProductModel {
   @Prop({ type: () => [ProductCharacteristics] })
   options: ProductCharacteristics[];
 
-  @Prop({ type: () => [String] })
-  categories: string[];
+  @Prop()
+  categories: string;
 
   @Prop({ type: () => [String] })
   tabs: string[];
