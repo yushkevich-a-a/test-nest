@@ -11,7 +11,7 @@ export class ProductService {
   constructor(
     @InjectModel(ProductModel.name)
     private readonly productModel: Model<ProductModel>,
-  ) {}
+  ) { }
 
   async create(dto: CreateProductDto) {
     const createProduct = new this.productModel(dto);
@@ -62,13 +62,23 @@ export class ProductService {
             reviewAvg: {
               $avg: '$reviews.rating',
             },
+            reviews: {
+              $function: {
+                body: `function (reviews) {
+                        reviews.sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)));
+                        return reviews; 
+                      }`,
+                args: ['$reviews'],
+                lang: 'js'
+              }
+            }
           },
         },
       ])
       .exec() as unknown as (ProductModel & {
-      reviews: ReviewModel[];
-      reviewCount: number;
-      reviewAvg: number;
-    })[];
+        reviews: ReviewModel[];
+        reviewCount: number;
+        reviewAvg: number;
+      })[];
   }
 }
