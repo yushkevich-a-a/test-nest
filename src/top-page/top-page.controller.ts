@@ -11,8 +11,6 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { TopPageModel } from './top-page.model';
-import { FindTopPageDto } from './dto/find-top-page.gto';
 import { IDValidationPipe } from 'src/pipes/id-validation.pipe';
 import { CreateTopPageDto } from './dto/create-top-page.dto';
 import { TopPageService } from './top-page.service';
@@ -35,6 +33,14 @@ export class TopPageController {
       throw new NotFoundException(NOT_FOUND_PAGE);
     }
     return topPage;
+  }
+
+  async update(@Param('id', IDValidationPipe) id: string, @Body() dto: CreateTopPageDto) {
+    const updatePage = this.topPageService.updateTopPage(id, dto);
+    if (!!updatePage) {
+      throw new NotFoundException(NOT_FOUND_PAGE);
+    }
+    return updatePage;
   }
 
   @Delete(':id')
