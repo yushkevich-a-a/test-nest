@@ -4,26 +4,44 @@ import {
   Delete,
   Get,
   HttpCode,
+  NotFoundException,
   Param,
   Patch,
   Post,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { TopPageModel } from './top-page.model';
 import { FindTopPageDto } from './dto/find-top-page.gto';
 import { IDValidationPipe } from 'src/pipes/id-validation.pipe';
+import { CreateTopPageDto } from './dto/create-top-page.dto';
+import { TopPageService } from './top-page.service';
+import { NOT_FOUND_PAGE } from './top-page.constants';
 
 @Controller('top-page')
 export class TopPageController {
-  @Get('get/:alias')
-  async get(@Param('alias') alias: string) {}
+  constructor(private readonly topPageService: TopPageService) { }
 
-  @HttpCode(200)
-  @Post('find')
-  async getByCategory(@Body() dto: FindTopPageDto) {}
+  @UsePipes(new ValidationPipe())
+  @Post()
+  async create(@Body() dto: CreateTopPageDto) {
+    return this.topPageService.create(dto);
+  }
 
-  @Post('save')
-  async save(@Body() dto: Omit<TopPageModel, '_id'>) {}
+  @Get('/:alias')
+  async get(@Param('alias') alias: string) {
+    const topPage = this.topPageService.findByAlias(alias);
+    if (!!topPage) {
+      throw new NotFoundException(NOT_FOUND_PAGE);
+    }
+    return topPage;
+  }
 
   @Delete(':id')
-  async delete(@Param('id', IDValidationPipe) id: string) {}
+  async delete(@Param('id', IDValidationPipe) id: string) {
+    const topPage = this.topPageService.delete(id);
+    if (!!topPage) {
+      throw new NotFoundException(NOT_FOUND_PAGE);
+    }
+  }
 }

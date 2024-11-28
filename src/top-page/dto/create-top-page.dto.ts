@@ -32,7 +32,7 @@ export class PageAdvantagesDto {
   description: string;
 }
 
-export class TopPageCreateDto {
+export class CreateTopPageDto {
 
   @IsEnum(TopLevelCategoryEnum)
   firstLevel: TopLevelCategoryEnum;
