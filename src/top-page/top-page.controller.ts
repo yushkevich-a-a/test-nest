@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpCode,
   NotFoundException,
   Param,
   Patch,
@@ -29,15 +28,17 @@ export class TopPageController {
   @Get('/:alias')
   async get(@Param('alias') alias: string) {
     const topPage = this.topPageService.findByAlias(alias);
-    if (!!topPage) {
+    if (!topPage) {
       throw new NotFoundException(NOT_FOUND_PAGE);
     }
     return topPage;
   }
 
+  @UsePipes(new ValidationPipe())
+  @Patch('/:id')
   async update(@Param('id', IDValidationPipe) id: string, @Body() dto: CreateTopPageDto) {
     const updatePage = this.topPageService.updateTopPage(id, dto);
-    if (!!updatePage) {
+    if (!updatePage) {
       throw new NotFoundException(NOT_FOUND_PAGE);
     }
     return updatePage;
@@ -46,7 +47,7 @@ export class TopPageController {
   @Delete(':id')
   async delete(@Param('id', IDValidationPipe) id: string) {
     const topPage = this.topPageService.delete(id);
-    if (!!topPage) {
+    if (!topPage) {
       throw new NotFoundException(NOT_FOUND_PAGE);
     }
   }
