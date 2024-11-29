@@ -43,7 +43,7 @@ export class TopPageModel {
   @Prop()
   secondLevel: string;
 
-  @Prop()
+  @Prop({ text: true })
   title: string;
 
   @Prop()
@@ -55,7 +55,7 @@ export class TopPageModel {
   @Prop(HHDate)
   hh?: HHDate;
 
-  @Prop()
+  @Prop({ text: true })
   seoText: string;
 
   @Prop()
@@ -67,6 +67,4 @@ export class TopPageModel {
 
 export const TopPageSchema = SchemaFactory.createForClass(TopPageModel);
 
-
-
-
+TopPageSchema.index({ '$**': 'text' });

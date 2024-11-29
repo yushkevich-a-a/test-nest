@@ -9,7 +9,6 @@ import {
 } from 'class-validator';
 import { TopLevelCategoryEnum } from './top-level-category.constants';
 
-
 export class HHDateDto {
   @IsNumber()
   count: number;
@@ -33,7 +32,6 @@ export class PageAdvantagesDto {
 }
 
 export class CreateTopPageDto {
-
   @IsEnum(TopLevelCategoryEnum)
   firstLevel: TopLevelCategoryEnum;
 
