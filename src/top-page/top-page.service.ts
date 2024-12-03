@@ -33,7 +33,16 @@ export class TopPageService {
   }
 
   async findByCategory(firstLevel: FindTopPageDto) {
-    return this.topPageModel.find(firstLevel, { alias: 1, title: 1 }).exec();
+    return this.topPageModel
+      .aggregate()
+      .match(firstLevel)
+      .group({
+        _id: { secondCategory: '$secondLevel' },
+        pages: {
+          $push: { alias: '$alias', title: '$title' },
+        },
+      })
+      .exec();
   }
 
   async updateTopPage(id: string, dto: CreateTopPageDto) {
