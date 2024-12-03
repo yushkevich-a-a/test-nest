@@ -13,8 +13,8 @@ jobs:
       - name: Publish to registry
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
-          registry: docker.pkg.github.com
           name: docker.pkg.github.com/yushkevich-a-a/test-nest/top-api
           username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.ACCESS_TOKEN }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          registry: docker.pkg.github.com
           tags: develop
