@@ -14,7 +14,7 @@ jobs:
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
           registry: ghcr.io
-          name: ghcr.io/yushkevich-a-a/test-nest/test-nest
+          name: ghcr.io/yushkevich-a-a/test-nest/test-nest:develop
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.ACCESS_TOKEN }}
           tags: develop
