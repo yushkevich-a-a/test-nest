@@ -17,4 +17,4 @@ jobs:
           name: ghcr.io/yushkevich-a-a/test-nest/test-nest:develop
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.ACCESS_TOKEN }}
-          tags: develop
+          tag: develop
