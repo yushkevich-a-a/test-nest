@@ -3,12 +3,12 @@ import { FileElementResponse } from './dto/file-elements.response';
 import { format } from 'date-fns';
 import { path } from 'app-root-path';
 import { ensureDir, writeFile } from 'fs-extra';
+import * as sharp from 'sharp';
+import { MFile } from './mfile.class';
 
 @Injectable()
 export class FilesService {
-  async saveFiles(
-    files: Express.Multer.File[],
-  ): Promise<FileElementResponse[]> {
+  async saveFiles(files: MFile[]): Promise<FileElementResponse[]> {
     const dateFolder = format(new Date(), 'yyyy-MM-dd');
     const uploadFolder = `${path}/upload/${dateFolder}`;
     await ensureDir(uploadFolder);
@@ -21,5 +21,9 @@ export class FilesService {
       });
     }
     return fileElements;
+  }
+
+  convertToWebp(buffer: Buffer): Promise<Buffer> {
+    return sharp(buffer).webp().toBuffer();
   }
 }
