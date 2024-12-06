@@ -4,10 +4,10 @@ import { HydratedDocument } from 'mongoose';
 export type TopPageDocument = HydratedDocument<TopPageModel>;
 
 export enum TopLevelCategory {
-  courses = 'courses',
-  services = 'services',
-  books = 'books',
-  product = 'product',
+  courses,
+  services,
+  books,
+  product,
 }
 
 export class HHDate {
