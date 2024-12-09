@@ -9,6 +9,7 @@ import { getMongoConfig } from './configs/mongo.config';
 import { UserModule } from './user/user.module';
 import { FilesModule } from './files/files.module';
 import { SitemapModule } from './sitemap/sitemap.module';
+import { TelegramModule } from './telegram/telegram.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { SitemapModule } from './sitemap/sitemap.module';
     UserModule,
     FilesModule,
     SitemapModule,
+    TelegramModule,
   ],
 })
 export class AppModule {}
