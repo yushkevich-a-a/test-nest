@@ -1,15 +1,10 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
 import { TelegramService } from './telegram.service';
-import { ConfigModule } from '@nestjs/config';
 import { ITelegramModuleAsyncOptions } from './telegram.interface';
 import { TELEGRAM_MODULE_OPTIONS } from './telegram.constants';
 
 @Global()
-@Module({
-  providers: [TelegramService],
-  imports: [ConfigModule],
-  exports: [TelegramService],
-})
+@Module({})
 export class TelegramModule {
   static forRootAsync(options: ITelegramModuleAsyncOptions): DynamicModule {
     const asyncOptions = this.createAsyncOptionsProvider(options);

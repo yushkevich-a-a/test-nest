@@ -14,7 +14,7 @@ import { getTelegramConfig } from './configs/telegram.config';
 
 @Module({
   imports: [
-    // ConfigModule.forRoot(),
+    ConfigModule.forRoot(),
     MongooseModule.forRootAsync({
       imports: [ConfigModule.forRoot()],
       inject: [ConfigService],
@@ -29,7 +29,7 @@ import { getTelegramConfig } from './configs/telegram.config';
     FilesModule,
     SitemapModule,
     TelegramModule.forRootAsync({
-      imports: [ConfigModule.forRoot()],
+      imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: getTelegramConfig,
     }),
